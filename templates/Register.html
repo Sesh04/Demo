@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        body
+        {
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-image:url('{{url_for("static",filename="pexels.png")}}')
+        }
+    </style>
+</head>
+  <body>
+    <div class="container"  style="padding-top: 20px ; padding-left: 260px;">
+        <form action="/register" method="POST">
+            <div class="mb-3">
+                <label for="InputEmail" class="form-label" style="color: rgb(246, 227, 227);">Email address</label>
+                <input type="email" class="form-control" id="InputEmail" name="InputEmail" aria-describedby="emailHelp" style="width:511px;" placeholder="name@example.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputUserName" class="form-label" style="color: rgb(246, 227, 227);">User Name</label>
+                <input type="text" class="form-control" id="InputUserName" name="InputUserName" style="width:511px;" placeholder="User Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputMobile" class="form-label" style="color: rgb(246, 227, 227);">Mobile Number</label>
+                <input type="number" class="form-control" id="InputMobile" name="InputMobile" style="width:511px;" placeholder="Enter Your Mobile Number" required>
+            </div>
+            <div class="mb-3">
+                <label for="InputTeam" class="form-label" style="color: rgb(246, 227, 227);">Team</label>
+                <select class="form-select form-select-sm" id= "InputTeam" name="InputTeam" aria-label=".form-select-sm example" style="width:511px;" required>
+                    <option selected>Select Team</option>
+                    <option value="Tools Support">Tools Support</option>
+                    <option value="Incident Management">Incident Management</option>
+                    <option value="Change Management">Change Management</option>
+                    <option value="Wintel">Wintel</option>
+                    <option value="Network">Network</option>
+                    <option value="Application">Application</option>
+                    <option value="Security">Security</option>
+                  </select>
+            </div>
+            <div class="mb-3">
+                <label for="InputRole" class="form-label" style="color: rgb(246, 227, 227);" >Role</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id= "InputRole" name="InputRole" style="width:511px;" required>
+                    <option selected>Select Employee's Role</option>
+                    <option value="Workgroup Owner">Workgroup Owner</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="InputPassword1" class="form-label" style="color: rgb(246, 227, 227);">Password</label>
+                <input type="password" class="form-control" aria-labelledby="passwordHelpBlock" id="InputPassword" name="InputPassword" style="width:511px;" placeholder="Password" required>
+            </div>
+            <div id="passwordHelpBlock" class="form-text" style="color: rgb(246, 227, 227);">
+                Your password must be 8-20 characters long and must contain letters and numbers.
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="reset" class="btn btn-primary">Reset</button><br>
+            
+        </form>
+        
+    </div>  
+        
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
+
+
+
+

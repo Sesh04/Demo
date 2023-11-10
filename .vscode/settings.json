@@ -1,0 +1,30 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Test",
+            "database": "ticketing",
+            "username": "kalpesh",
+            "password": "Thane1234"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "database-1.cazb9kcap4ev.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "FlaskTestRDS",
+            "username": "admin",
+            "password": "Ticket1234",
+            "database": "ticketing"
+        }
+    ]
+}

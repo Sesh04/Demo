@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Change Record - {{change_r.cr}} {% endblock title %}
+
+{% block body %}
+{% if success_msg %}
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <p>{{success_msg}}</p>
+</div>
+{% endif %}
+{% if errors %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <p>{{errors}}</p>
+</div>
+{% endif %}
+

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        body
+        {
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-image:url('{{url_for("static",filename="pexels.png")}}')  
+            
+        }
+    </style>
+</head>
+  <body>
+    {% if errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <ul>
+            {% for error in errors %}
+              <li>
+                {{error}}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      {% if errors_login %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <p>{{errors_login}}</p>
+        </div>
+      {% endif %}
+      {% if success_msg %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <p>{{success_msg}}</p>
+        </div>
+      {% endif %}
+    <div class="container"  style="padding-top: 150px ; padding-left: 380px;">
+      
+      
+        <form action="/" method="POST">
+            <div class="mb-3">
+                <label for="InputUserName" class="form-label" style="color: rgb(246, 227, 227);">User Name</label>
+                <input type="text" class="form-control" id="InputUserName" name="InputUserName" aria-describedby="textHelp" style="width:511px;" placeholder="User Name">
+            </div>
+            <div class="mb-3">
+                <label for="Input_Password" class="form-label" style="color: rgb(246, 227, 227);">Password</label>
+                <input type="password" class="form-control" id="Input_Password" name="Input_Password" style="width:511px;" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="alert" id="liveAlertBtn1">Login</button>
+            <button type="reset" class="btn btn-primary">Reset</button><br>
+            <a href="/forgotpassword" style="color: rgb(246, 227, 227);" data-bs-toggle="modal" data-bs-target="#exampleModal"> Forgot Password? Reset your password here</a>
+        </form>
+        
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <form action="/forgotpassword" method="POST">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div id="liveAlertPlaceholder"></div>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reset Your Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Username</label>
+                    <input type="text" class="form-control" id="username_u" name="username_u">
+                  </div>
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phonenumber_u" name="phonenumber_u">
+                  </div>
+                  <div class="mb-3">
+                      <label for="message-text" class="col-form-label">New Password</label>
+                      <input type="password" class="form-control" id="resetpassword_u" name="resetpassword_u">
+                  </div>    
+              </div>
+              <div class="modal-footer">
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="alert" aria-label="Close" id="liveAlertBtn" >Update Password</button>
+                
+                
+              </div>
+            </div>
+          </div>
+       </form> 
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
+
+
+
+

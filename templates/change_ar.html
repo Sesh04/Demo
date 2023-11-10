@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% block title %} Change Record - {{change_r.cr}} {% endblock title %}
+
+{% block body %}
+{% if success_msg %}
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <p>{{success_msg}}</p>
+</div>
+{% endif %}
+{% if errors %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <p>{{errors}}</p>
+</div>
+{% endif %}
+<div class="row">
+  <div class="col-11">
+    <form action="/changerecord/{{change_r.cr}}" method="POST">
+      <div class="row">
+        <div class="col-3 ps-4">
+          <div class="row pt-4">
+            <label for="cr" id="label_CR" name="label_CR" class="col-6">Change Record -</label> <label class="ps-2 col-6"
+              name="cr" id="cr"> {{change_r.cr}} </label>
+          </div>
+          <div class="row pt-4">
+            <div class="col-4">
+              <label for="requester">Requester:</label>
+            </div>
+            <div class="col-8">
+              <label>{{change_r.requester}}</label>
+            </div>
+          </div>
+          <div class="row pt-4">
+            <div class="col-4">
+              <label for="logtime">Logtime</label>
+            </div>
+            <div class="col-8">
+              <label>{{change_r.logtime}}</label>
+            </div>
+          </div>
+          <div class="row pt-4">
+            <label for="ownerworkgroup">Owner Workgroup:</label>
+            <div class="pt-4 ps-3">
+              <select class="form-select form-select-sm pt-2" id="ownerworkgroupv" name="ownerworkgroupv"
+                aria-label=".form-select-sm" style="width:200px;" readonly="True">
+                <option selected value="{{change_r.ownerwg}}">{{change_r.ownerwg}}</option>
+                <option value="Tools Support">Tools Support</option>
+                <option value="Incident Management">Incident Management</option>
+                <option value="Change Management">Change Management</option>
+                <option value="Wintel">Wintel</option>
+                <option value="Network">Network</option>
+                <option value="Application">Application</option>
+                <option value="Security">Security</option>
+              </select>
+            </div>
+          </div>
+          <div class="row pt-4">
+            <label for="changetype">Change Type</label>
+            <div class="pt-4 ps-3">
+              <select class="form-select form-select-sm pt-2" id="changetype" name="changetype" aria-label=".form-select-sm"
+                style="width:200px;" readonly="True">
+                <option selected value="{{change_r.changetype}}">{{change_r.changetype}}</option>
+                <option value="Normal Change">Normal Change</option>
+                <option value="PPC Change">PPC Change</option>
+                <option value="Emergency Change">Emergency Change</option>
+              </select>
+            </div>
+          </div>
+          <div class="row pt-4">
+            <label for="changestatus">Change Status</label>
+            <div class="pt-4 ps-3">
+              <select class="form-select form-select-sm pt-2" id="changestatus" name="changestatus"
+                aria-label=".form-select-sm" style="width:200px;">
+                {% if change_r.changestatus == "Implemented" %}
+                  <option value="{{change_r.changestatus}}" selected>{{change_r.changestatus}}</option>
+              
+                {% elif change_r.changestatus == "Requested" %}
+                  <option value="{{change_r.changestatus}}" selected>{{change_r.changestatus}}</option>
+                  <option value="{{change_r.nextstatus}}" >{{change_r.nextstatus}}</option>
+            
+                {% elif change_r.changestatus == "Pending For Approval" %}
+                  <option value="{{change_r.changestatus}}" selected>{{change_r.changestatus}}</option>
+                  <option value="{{change_r.nextstatus}}" >{{change_r.nextstatus}}</option>
+
+                {% else %}
+                  <option value="{{change_r.changestatus}}" selected>{{change_r.changestatus}}</option>
+                  <option value="{{change_r.nextstatus}}" >{{change_r.nextstatus}}</option>
+                  <option value="Cancelled" >Cancelled</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-9">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="General-tab" data-bs-toggle="tab" data-bs-target="#General-tab-pane"
+                type="button" role="tab" aria-controls="General-tab-pane" aria-selected="true">General</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="Risk-tab" data-bs-toggle="tab" data-bs-target="#Risk-tab-pane" type="button"
+                role="tab" aria-controls="Risk-tab-pane" aria-selected="false">Risk</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="Implementation-tab" data-bs-toggle="tab"
+                data-bs-target="#Implementation-tab-pane" type="button" role="tab" aria-controls="Implementation-tab-pane"
+                aria-selected="false">Implementation</button>
+            </li>
+            <div class="nav-item" style="align-items: flex-end;">
+              <button class="btn btn-dark" id="submit_btn" type="submit">Submit</button>
+            </div>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="General-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+              tabindex="0">
+              <div class="row g-3 pt-4">
+                <div class="row pt-5">
+                  <div class="col-2">
+                    <label for="urgency">Urgency</label>
+                  </div>
+                  <div class="col-4">
+                    <select class="form-select form-select-sm" id="urgency" name="urgency" aria-label=".form-select-sm"
+                      style="width:200px;" aria-readonly="True">
+                      <option selected value="{{change_r.urgency}}">{{change_r.urgency}}</option>
+                      <option value="High">High</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Low">Low</option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <label for="operationalrisk">Operational Risk</label>
+                  </div>
+                  <div class="col-4">
+                    <select class="form-select form-select-sm" id="operationalrisk" name="operationalrisk"
+                      aria-label=".form-select-sm" style="width:200px;" aria-readonly="True">
+                      <option selected value="{{change_r.operationalrisk}}">{{change_r.operationalrisk}}</option>
+                      <option value="High">High</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Low">Low</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row pt-4">
+                  <div class="col-2">
+                    <label for="assignedworkgroup">Assigned Workgroup</label>
+                  </div>
+                  <div class="col-10">
+                    <select class="form-select form-select-sm pt-2" id="assignedworkgroup" name="assignedworkgroup"
+                      aria-label=".form-select-sm" style="width:200px;" aria-readonly="True">
+                      <option selected value="{{change_r.assignedworkgroup}}">{{change_r.assignedworkgroup}}</option>
+                      <option value="Tools_Support">Tools Support</option>
+                      <option value="Incident_Management">Incident Management</option>
+                      <option value="Change_Management">Change Management</option>
+                      <option value="Wintel">Wintel</option>
+                      <option value="Network">Network</option>
+                      <option value="Application">Application</option>
+                      <option value="Security">Security</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row pt-4">
+                  <div class="col-2">
+                    <label for="downtimerequired">Downtime Required</label>
+                  </div>
+                  <div class="col-10">
+                    <select class="form-select form-select-sm pt-2" id="downtimerequired" name="downtimerequired"
+                      aria-label=".form-select-sm" style="width:200px;">
+                      <option selected>{{change_r.downtimerequired}}</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+
+                </div>
+                <div class="row pt-4">
+                  <div class="col-2">
+                    <label for="plannedstarttime">Planned Start Time</label>
+                  </div>
+                  <div class="col-4">
+                    <input type="datetime-local" id="plannedstarttime" name="plannedstarttime" style="width:200px;"
+                      value="{{change_r.plannedstarttime}}">
+                  </div>
+                  <div class="col-2">
+                    <label for="plannedendtime">Planned End Time</label>
+                  </div>
+                  <div class="col-4">
+                    <input type="datetime-local" id="plannedendtime" name="plannedendtime" style="width:200px;"
+                      value="{{change_r.plannedendtime}}">
+                  </div>
+                </div>
+                <div class="row pt-4">
+                  <label for="summary">Summary</label>
+                  <div class="pt-2">
+                    <textarea id="summary" name="summary" style="width:800px;" rows="3">{{change_r.summary}}</textarea>
+                  </div>
+                </div>
+                <div class="row pt-4">
+                  <label for="description">Description</label>
+                  <div class="pt-2">
+                    <textarea id="description" name="description" style="width:800px;"
+                      rows="3">{{change_r.description}}</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Risk-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+              <div class="mb-3 pt-4 ps-4">
+                <label for="businessimpact" class="form-label">Impact to any application or services during the
+                  change
+                  execution </label>
+                <textarea class="form-control" style="width:800px;" name="businessimpact" id="businessimpact"
+                  rows="3">{{change_r.businessimpact}}</textarea>
+              </div>
+              <div class="mb-3 ps-4">
+                <label for="impactedservices" class="form-label"> List impacted application or Services </label>
+                <textarea class="form-control" style="width:800px;" id="impactedservices" name="impactedservices"
+                  rows="3">{{change_r.impactedservices}}</textarea>
+              </div>
+              <div class="mb-3 ps-4">
+                <label for="backoutplan" class="form-label"> Backout Plan </label>
+                <textarea class="form-control" style="width:800px;" id="backoutplan" name="backoutplan"
+                  rows="3">{{change_r.backoutplan}}</textarea>
+              </div>
+              <div class=" row mb-3 ps-4">
+                <div class="col-2">
+                  <label for="backoutplantested" class="form-label"> Backout Plan Tested ??</label>
+                </div>
+                <div class="col-10">
+                  <select class="form-select form-select-sm pt-2" id="backoutplantested" name="backoutplantested"
+                    aria-label=".form-select-sm" style="width:200px;">
+                    <option selected value="{{change_r.backoutplantested}}">{{change_r.backoutplantested}}</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="tab-pane fade" id="Implementation-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+              tabindex="0">
+              <div class="row pt-4">
+                <div class="col-3">
+                  <label for="actualstarttime" class="ps-4 form-label">Actual Start Time</label>
+                </div>
+                <div class="col-3 ps-4">
+                  <input type="datetime-local" id="actualstarttime" name="actualstarttime" style="width:200px;"
+                    value="{{change_r.actualstarttime}}">
+                </div>
+                <div class="col-3">
+                  <label for="actualendtime" class="ps-4 form-label">Actual End Time</label>
+                </div>
+                <div class="col-3">
+                  <input type="datetime-local" id="actualendtime" name="actualendtime" style="width:200px;"
+                    value="{{change_r.actualendtime}}">
+                </div>
+              </div>
+
+              <div class="row pt-4 ps-4">
+                <div class="col-3">
+                  <label for="changeimplementedstatus" class="form-label">Has the change been implemented</label>
+                </div>
+                <div class="col-9">
+                  <select class="form-select form-select-sm" id="changeimplementedstatus" name="changeimplementedstatus"
+                    aria-label=".form-select-sm example" style="width:200px;">
+                    <option value="{{change_r.changeimplementedstatus}}">{{change_r.changeimplementedstatus}}</option>
+                    <option value="Change_Implemented">Change Implemented</option>
+                    <option value="Change_RolledBack">Change Rolled Back</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="row g-3 pt-4 ps-4">
+                <div class="col-3">
+                  <label for="changesuccessstatus" class="form-label">Is the change Implemented Successfully</label>
+                </div>
+                <div class="col-9">
+                  <select class="form-select form-select-sm" id="changesuccessstatus" name="changesuccessstatus"
+                    aria-label=".form-select-sm example" style="width:200px;">
+                    <option value="{{change_r.changesuccessstatus}}">{{change_r.changesuccessstatus}}</option>
+                    <option value="Change_Implemented">Yes</option>
+                    <option value="Change_RolledBack">No</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row g-3 pt-4 ps-4">
+                <label for="solution" class="form-label"> Solution / Observations </label>
+                <textarea class="form-control" style="width:800px;" id="solution" name="solution"
+                  rows="3">{{change_r.solution}}</textarea>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-1 pt-5 ps-1">
+    <!-- Button trigger modal -->
+    <form action="/approverfc/{{change_r.cr}}" method="POST">
+      <div class="container">
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Approve
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: black;">Approve RFC?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-3">
+                    <select class="form-select form-select-sm" id="approvalwg" name="approvalwg" aria-label=".form-select-sm example">
+                      <option value="" selected>Approve/Reject RFC</option>
+                      <option value="Approve">Approve</option>
+                      <option value="reffer back">Reffer Back</option>
+                    </select>
+                  </div>
+                  <div class="col-9">
+                    <textarea placeholder="Comments" id="comments" name="comments" style="width:400px;" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Approve</button>
+              </div>
+            </div>    
+          </div>
+          
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock body %}

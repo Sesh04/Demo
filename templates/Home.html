@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock title %}
+{% block body %}
+  {% if success_msg %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <p>{{success_msg}}</p>
+    </div>
+  {% endif %}
+  {% if current_user.is_authenticated  %}
+    Welcome {{ current_user.username }}!! You have successfully logged in
+  {% endif %}
+{% endblock body %}

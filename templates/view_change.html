@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock title %}
+
+{% block body %}
+{% if success_msg %}
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="liveAlertPlaceholder">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <p>{{success_msg}}</p>
+</div>
+{% endif %}
+{% if errors %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <p>{{errors}}</p>
+  </div>        
+{% endif %}
+<div class="container-fluid">
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Change Record</th>
+            <th scope="col">Requester</th>
+            <th scope="col">Owner Workgroup</th>
+            <th scope="col">Log Time</th>
+            <th scope="col">Change Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Planned Start Time</th>
+            <th scope="col">Planned End Time</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Actual Start Time</th>
+            <th scope="col">Actual End Time</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for change in change_r %}
+                <tr>
+                    <td>{{change.cr}}</td>
+                    <td>{{change.requester}}</td>
+                    <td>{{change.ownerwg}}</td>
+                    <td>{{change.logtime}}</td>
+                    <td>{{change.changetype}}</td>
+                    <td>{{change.changestatus}}</td>
+                    <td>{{change.plannedstarttime}}</td>
+                    <td>{{change.plannedendtime}}</td>
+                    <td>{{change.summary}}</td>
+                    <td>{{change.actualstarttime}}</td>
+                    <td>{{change.actualendtime}}</td>
+                    <td>
+                        <a href="/changerecord/{{change.cr}}">View / Update</a>
+                    </td>
+                </tr>
+            {% endfor %}
+          
+          
+        </tbody>
+    </table>
+    
+</div>
+
+
+    
+{% endblock body %}
